@@ -1,0 +1,11 @@
+#virtual environment
+.venv/
+
+#optimize
+__pycache__/
+
+#mac os sys file
+.DS_Store
+
+#IDE
+.idea/
