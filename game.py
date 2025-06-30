@@ -7,7 +7,7 @@ themes = [
         "img": "img/makoto_hanaoka_1.jpg"
     },
     {
-        "img": "img/march_7th_1.jpg"
+        "img": "img/makoto_hanaoka_2.jpg"
     }
 ]
 
@@ -26,6 +26,11 @@ class Game:
         self.wrong = 0
         self.next_state = None
 
+    def draw_text(self, size, text, color, center):
+        font = pygame.font.Font(None, size)
+        text = font.render(text, True, color).convert_alpha()
+        text_rect = text.get_rect(center = center)
+        self.screen.blit(text, text_rect)
 
     def draw_image(self, name):
         image = pygame.image.load(name).convert_alpha()
@@ -43,6 +48,11 @@ class Game:
             x , y = divmod(cell.id, 9)
             text = self.problem[x][y] if self.problem[x][y] else EMPTY
             cell.set_text(text)
+
+    def update(self):
+        if self.wrong == 3:
+            self.draw_text(30, "Game Over!" ,WHITE, (WIDTH//2, HEIGHT//2))
+
 
 
     def build(self):
@@ -68,8 +78,8 @@ class Game:
                 else:
                     self.target = cell_selected[0]
             elif number_selected:
-                tx, ty = divmod(self.target.id, 9)
                 if self.target is None: return
+                tx, ty = divmod(self.target.id, 9)
                 if self.problem[tx][ty]: return
                 number = number_selected[0].string
                 if number == self.solution[tx][ty]:

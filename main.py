@@ -2,12 +2,11 @@ import pygame
 
 pygame.init()
 from game import *
-from menu import *
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 
-state = Menu(screen)
+state = Game(screen, 1)
 running = True
 
 while running:
@@ -17,7 +16,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     state.draw()
-    if state.next_state == "play":
-        state = Game(screen, state.play_theme)
+    state.update()
     pygame.display.update()
     clock.tick(60)
